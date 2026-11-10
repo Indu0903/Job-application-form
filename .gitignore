@@ -1,0 +1,25 @@
+# Angular / Node.js
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.py[cod]
+backend/.pytest_cache/
+backend/.ruff_cache/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
+
+# IDE and operating system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

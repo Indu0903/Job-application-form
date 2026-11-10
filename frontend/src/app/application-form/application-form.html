@@ -1,0 +1,859 @@
+<form [formGroup]="applicationForm" (ngSubmit)="onSubmit()"
+    class="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 shadow-sm space-y-10">
+
+    <!-- Section 1: Target Job Details -->
+    <section>
+        <h3 class="text-xl font-bold text-slate-900 pb-2 border-b border-slate-200 flex items-center gap-2">
+            <span
+                class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 text-sm font-bold flex items-center justify-center">1</span>
+            Target Job Details
+        </h3>
+
+        <div class="mt-6 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Job Title <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" formControlName="jobTitle" placeholder="e.g. Senior Frontend Engineer"
+                        class="form-input" />
+                    @if (applicationForm.get('jobTitle')?.touched && applicationForm.get('jobTitle')?.invalid) {
+                    <p class="error-text">Job title is required.</p>
+                    }
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Company Name <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" formControlName="companyName" placeholder="e.g. Acme Corporation"
+                        class="form-input" />
+                    @if (applicationForm.get('companyName')?.touched && applicationForm.get('companyName')?.invalid) {
+                    <p class="error-text">Company name is required.</p>
+                    }
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Job Type <span class="text-red-500">*</span>
+                    </label>
+                    <select formControlName="jobType" class="form-input bg-white">
+                        <option value="" disabled>Select job type</option>
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Remote">Remote</option>
+                    </select>
+                    @if (applicationForm.get('jobType')?.touched && applicationForm.get('jobType')?.invalid) {
+                    <p class="error-text">Please select a job type.</p>
+                    }
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Job Posting URL / Reference ID
+                    </label>
+                    <input type="url" formControlName="jobUrl" placeholder="https://company.com/careers/job-123"
+                        class="form-input" />
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">
+                    Job Description / Requirements Summary
+                </label>
+                <textarea formControlName="jobDescription" rows="3"
+                    placeholder="Paste the job description or role requirements..."
+                    class="form-input resize-y"></textarea>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Personal Information -->
+    <section>
+        <h3 class="text-xl font-bold text-slate-900 pb-2 border-b border-slate-200 flex items-center gap-2">
+            <span
+                class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 text-sm font-bold flex items-center justify-center">2</span>
+            Personal Information
+        </h3>
+
+        <div class="mt-6 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        First Name <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" formControlName="firstName" placeholder="John" class="form-input" />
+                    @if (applicationForm.get('firstName')?.touched && applicationForm.get('firstName')?.invalid) {
+                    <p class="error-text">First name is required.</p>
+                    }
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Last Name <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" formControlName="lastName" placeholder="Doe" class="form-input" />
+                    @if (applicationForm.get('lastName')?.touched && applicationForm.get('lastName')?.invalid) {
+                    <p class="error-text">Last name is required.</p>
+                    }
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Email Address <span class="text-red-500">*</span>
+                    </label>
+                    <input type="email" formControlName="email" placeholder="john.doe@example.com" class="form-input" />
+                    @if (applicationForm.get('email')?.touched && applicationForm.get('email')?.invalid) {
+                    <p class="error-text">Enter a valid email address.</p>
+                    }
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Phone Number <span class="text-red-500">*</span>
+                    </label>
+                    <input type="tel" formControlName="phone" placeholder="+1 (555) 000-0000" class="form-input" />
+                    @if (applicationForm.get('phone')?.touched && applicationForm.get('phone')?.invalid) {
+                    <p class="error-text">Valid phone number is required.</p>
+                    }
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="sm:col-span-2">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Current City & State / Country <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" formControlName="location"
+                        placeholder="e.g. San Francisco, CA or Bangalore, India" class="form-input" />
+                    @if (applicationForm.get('location')?.touched && applicationForm.get('location')?.invalid) {
+                    <p class="error-text">Location is required.</p>
+                    }
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Postal / Zip Code
+                    </label>
+                    <input type="text" formControlName="pinCode" placeholder="e.g. 94105" class="form-input" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Professional Profiles & Links -->
+    <section>
+        <h3 class="text-xl font-bold text-slate-900 pb-2 border-b border-slate-200 flex items-center gap-2">
+            <span
+                class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 text-sm font-bold flex items-center justify-center">3</span>
+            Professional Profiles & Links
+        </h3>
+
+        <div class="mt-6 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        LinkedIn Profile URL <span class="text-red-500">*</span>
+                    </label>
+                    <input type="url" formControlName="linkedinUrl" placeholder="https://linkedin.com/in/username"
+                        class="form-input" />
+                    @if (applicationForm.get('linkedinUrl')?.touched && applicationForm.get('linkedinUrl')?.invalid) {
+                    <p class="error-text">Valid LinkedIn URL is required.</p>
+                    }
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        GitHub Profile / Repositories
+                    </label>
+                    <input type="url" formControlName="githubUrl" placeholder="https://github.com/username"
+                        class="form-input" />
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Portfolio / Personal Website
+                    </label>
+                    <input type="url" formControlName="portfolioUrl" placeholder="https://myportfolio.dev"
+                        class="form-input" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Other Link (Blog, Twitter/X, Dribbble)
+                    </label>
+                    <input type="url" formControlName="otherUrl" placeholder="https://..." class="form-input" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Experience & Availability (Carefully Ordered Sequence) -->
+    <section>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                <span
+                    class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 text-sm font-bold flex items-center justify-center">4</span>
+                Experience & Availability
+            </h3>
+            <span class="text-xs text-slate-500 font-medium bg-slate-100 px-2.5 py-1 rounded-full">
+                Career Summary & Timeline
+            </span>
+        </div>
+
+        <!-- Re-sequenced fields: Timeline -> Status -> Notice -> Earliest Start -> Salary -->
+        <div class="mt-6 space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- 1. Total Experience -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Total Professional Experience <span class="text-red-500">*</span>
+                    </label>
+                    <select formControlName="totalExperience" class="form-input bg-white">
+                        <option value="" disabled>Select total experience</option>
+                        <option value="0">Fresher / Less than 1 year</option>
+                        <option value="1">1 Year</option>
+                        <option value="2">2 Years</option>
+                        <option value="3">3 Years</option>
+                        <option value="4">4 Years</option>
+                        <option value="5">5 Years</option>
+                        <option value="6-8">6 - 8 Years</option>
+                        <option value="8-10">8 - 10 Years</option>
+                        <option value="10+">10+ Years</option>
+                    </select>
+                    @if (applicationForm.get('totalExperience')?.touched &&
+                    applicationForm.get('totalExperience')?.invalid) {
+                    <p class="error-text">Please select your total experience.</p>
+                    }
+                </div>
+
+                <!-- 2. Employment Status -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Current Employment Status <span class="text-red-500">*</span>
+                    </label>
+                    <select formControlName="employmentStatus" class="form-input bg-white">
+                        <option value="Employed">Currently Employed</option>
+                        <option value="Serving Notice">Serving Notice Period</option>
+                        <option value="Actively Looking">Actively Looking / In Between Jobs</option>
+                        <option value="Freelancer">Freelancer / Independent Contractor</option>
+                        <option value="Student">Student / Recent Graduate</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- 3. Notice Period -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Notice Period <span class="text-red-500">*</span>
+                    </label>
+                    <select formControlName="noticePeriod" class="form-input bg-white">
+                        <option value="" disabled>Select notice period</option>
+                        <option value="Immediate">Immediate (0 days)</option>
+                        <option value="15-days">15 Days or less</option>
+                        <option value="30-days">30 Days</option>
+                        <option value="60-days">60 Days</option>
+                        <option value="90-days">90 Days</option>
+                        <option value="Serving Notice">Already Serving Notice</option>
+                    </select>
+                    @if (applicationForm.get('noticePeriod')?.touched && applicationForm.get('noticePeriod')?.invalid) {
+                    <p class="error-text">Please select your notice period.</p>
+                    }
+                </div>
+
+                <!-- 4. Earliest Start Date -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Earliest Available Joining Date
+                    </label>
+                    <input type="date" formControlName="earliestStartDate" class="form-input bg-white" />
+                </div>
+            </div>
+
+            <!-- 5. Compensation: Currency, Current CTC, Expected CTC -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Currency
+                    </label>
+                    <select formControlName="currency" class="form-input bg-white">
+                        <option value="USD">USD ($)</option>
+                        <option value="INR">INR (₹)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="GBP">GBP (£)</option>
+                        <option value="CAD">CAD (C$)</option>
+                        <option value="AUD">AUD (A$)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Current Annual Compensation / CTC
+                    </label>
+                    <input type="text" formControlName="currentCtc" placeholder="e.g. 85,000" class="form-input" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Expected Annual Compensation / CTC <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" formControlName="expectedCtc" placeholder="e.g. 105,000" class="form-input" />
+                    @if (applicationForm.get('expectedCtc')?.touched && applicationForm.get('expectedCtc')?.invalid) {
+                    <p class="error-text">Expected compensation is required.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Work Experience / Employment History (With Dynamic Add More) -->
+    <section>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                <span
+                    class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 text-sm font-bold flex items-center justify-center">5</span>
+                Work Experience / Employment History
+            </h3>
+        </div>
+
+        <div class="mt-6 space-y-6">
+            @for (job of workExperienceList.controls; track $index; let i = $index) {
+            <div [formGroup]="$any(job)"
+                class="p-5 border border-slate-200 rounded-xl bg-slate-50/50 relative transition hover:border-slate-300">
+
+                <!-- Card Header with Remove Button -->
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-sm font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                        <span
+                            class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 text-xs flex items-center justify-center">
+                            {{ i + 1 }}
+                        </span>
+                        Position #{{ i + 1 }}
+                    </span>
+
+                    @if (workExperienceList.length > 1) {
+                    <button type="button" (click)="removeWorkExperience(i)"
+                        class="text-xs text-red-600 hover:text-red-700 hover:bg-red-50 px-2.5 py-1 rounded transition flex items-center gap-1 font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Remove
+                    </button>
+                    }
+                </div>
+
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">
+                                Job Title <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" formControlName="jobTitle" placeholder="e.g. Frontend Developer"
+                                class="form-input" />
+                            @if (job.get('jobTitle')?.touched && job.get('jobTitle')?.invalid) {
+                            <p class="error-text">Job title is required.</p>
+                            }
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">
+                                Company Name <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" formControlName="companyName" placeholder="e.g. Google or Infosys"
+                                class="form-input" />
+                            @if (job.get('companyName')?.touched && job.get('companyName')?.invalid) {
+                            <p class="error-text">Company name is required.</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">
+                                Employment Type
+                            </label>
+                            <select formControlName="employmentType" class="form-input bg-white">
+                                <option value="Full-time">Full-time</option>
+                                <option value="Part-time">Part-time</option>
+                                <option value="Contract">Contract</option>
+                                <option value="Internship">Internship</option>
+                                <option value="Freelance">Freelance</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">
+                                Location
+                            </label>
+                            <input type="text" formControlName="location" placeholder="e.g. New York, NY / Remote"
+                                class="form-input" />
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">
+                                Start Date <span class="text-red-500">*</span>
+                            </label>
+                            <input type="month" formControlName="startDate" class="form-input bg-white" />
+                            @if (job.get('startDate')?.touched && job.get('startDate')?.invalid) {
+                            <p class="error-text">Start date is required.</p>
+                            }
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">
+                                End Date
+                            </label>
+                            <input type="month" formControlName="endDate" class="form-input bg-white"
+                                [disabled]="job.get('isCurrentRole')?.value" />
+                            <label class="flex items-center gap-2 mt-2 cursor-pointer select-none">
+                                <input type="checkbox" formControlName="isCurrentRole"
+                                    class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+                                <span class="text-xs text-slate-600 font-medium">I currently work here</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">
+                            Responsibilities & Notable Achievements
+                        </label>
+                        <textarea formControlName="responsibilities" rows="3"
+                            placeholder="Key projects delivered, technologies leveraged, and impact created..."
+                            class="form-input resize-y"></textarea>
+                    </div>
+                </div>
+            </div>
+            }
+
+            <!-- Add Job Button -->
+            <button type="button" (click)="addWorkExperience()"
+                class="w-full sm:w-auto px-4 py-2.5 rounded-lg border-2 border-dashed border-blue-400 text-blue-600 hover:border-blue-600 hover:bg-blue-50/50 font-semibold text-sm transition flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Add Another Work Experience
+            </button>
+        </div>
+    </section>
+
+    <!-- Section 6: Education History (With Dynamic Add More) -->
+    <section>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                <span
+                    class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 text-sm font-bold flex items-center justify-center">6</span>
+                Education History
+            </h3>
+
+        </div>
+
+        <div class="mt-6 space-y-6">
+            @for (edu of educationList.controls; track $index; let i = $index) {
+            <div [formGroup]="$any(edu)"
+                class="p-5 border border-slate-200 rounded-xl bg-slate-50/50 relative transition hover:border-slate-300">
+
+                <!-- Card Header with Remove Button -->
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-sm font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                        <span
+                            class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 text-xs flex items-center justify-center">
+                            {{ i + 1 }}
+                        </span>
+                        Degree #{{ i + 1 }}
+                    </span>
+
+                    @if (educationList.length > 1) {
+                    <button type="button" (click)="removeEducation(i)"
+                        class="text-xs text-red-600 hover:text-red-700 hover:bg-red-50 px-2.5 py-1 rounded transition flex items-center gap-1 font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Remove
+                    </button>
+                    }
+                </div>
+
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">
+                                Level of Education / Degree <span class="text-red-500">*</span>
+                            </label>
+                            <select formControlName="highestDegree" class="form-input bg-white">
+                                <option value="" disabled>Select degree level</option>
+                                <option value="Bachelor's Degree">Bachelor's Degree (B.Tech, B.E., B.Sc, B.A., B.Com)
+                                </option>
+                                <option value="Master's Degree">Master's Degree (M.Tech, M.S., M.Sc, MBA, MCA)</option>
+                                <option value="Doctorate / Ph.D.">Doctorate / Ph.D.</option>
+                                <option value="Associate / Diploma">Associate Degree / Polytechnic Diploma</option>
+                                <option value="High School">High School / Secondary (10+2)</option>
+                                <option value="Certification Program">Professional Certification</option>
+                            </select>
+                            @if (edu.get('highestDegree')?.touched && edu.get('highestDegree')?.invalid) {
+                            <p class="error-text">Degree level is required.</p>
+                            }
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">
+                                Major / Field of Study <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" formControlName="fieldOfStudy"
+                                placeholder="e.g. Computer Science, Information Technology" class="form-input" />
+                            @if (edu.get('fieldOfStudy')?.touched && edu.get('fieldOfStudy')?.invalid) {
+                            <p class="error-text">Field of study is required.</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="sm:col-span-2">
+                            <label class="block text-sm font-medium text-slate-700 mb-1">
+                                University / College / Institution <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" formControlName="university"
+                                placeholder="e.g. Stanford University or Delhi University" class="form-input" />
+                            @if (edu.get('university')?.touched && edu.get('university')?.invalid) {
+                            <p class="error-text">University or institution name is required.</p>
+                            }
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">
+                                Graduation Year <span class="text-red-500">*</span>
+                            </label>
+                            <input type="number" formControlName="graduationYear" placeholder="2024" min="1970"
+                                max="2035" class="form-input" />
+                            @if (edu.get('graduationYear')?.touched && edu.get('graduationYear')?.invalid) {
+                            <p class="error-text">Graduation year is required.</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">
+                            GPA / Percentage / Honors (Optional)
+                        </label>
+                        <input type="text" formControlName="gradeOrGpa" placeholder="e.g. 3.8 / 4.0 or 85%"
+                            class="form-input" />
+                    </div>
+                </div>
+            </div>
+            }
+
+            <!-- Add Education Button -->
+            <button type="button" (click)="addEducation()"
+                class="w-full sm:w-auto px-4 py-2.5 rounded-lg border-2 border-dashed border-blue-400 text-blue-600 hover:border-blue-600 hover:bg-blue-50/50 font-semibold text-sm transition flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Add Another Education / Degree
+            </button>
+        </div>
+    </section>
+
+    <!-- Section 7: Skills with Multi-Select Checkbox Dropdown -->
+    <section>
+        <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+            <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                <span
+                    class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 text-sm font-bold flex items-center justify-center">7</span>
+                Skills & Certifications
+            </h3>
+            <span class="text-xs text-slate-500 font-medium">
+                {{ selectedSkills().length }} {{ selectedSkills().length === 1 ? 'skill' : 'skills' }} selected
+            </span>
+        </div>
+
+        <div class="mt-6 space-y-5">
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">
+                    Skills <span class="text-red-500">*</span>
+                </label>
+                <span class="text-xs text-slate-500 mb-2 block">
+                    Click below to open the dropdown and check all the technical and professional skills that apply to
+                    you.
+                </span>
+
+                <!-- Dropdown Trigger Button -->
+                <div class="relative">
+                    <button type="button" (click)="toggleSkillsDropdown()"
+                        class="w-full text-left form-input bg-white flex items-center justify-between cursor-pointer border border-slate-300 rounded-lg py-2.5 px-3 shadow-sm hover:border-blue-400 focus:outline-none">
+                        <span class="text-sm truncate" [class.text-slate-400]="selectedSkills().length === 0"
+                            [class.text-slate-800]="selectedSkills().length > 0">
+                            @if (selectedSkills().length === 0) {
+                            Select your skills from the list...
+                            } @else {
+                            {{ selectedSkills().length }} skills selected ({{ selectedSkills().slice(0, 3).join(', ')
+                            }}{{
+                            selectedSkills().length > 3 ? '...' : '' }})
+                            }
+                        </span>
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="w-5 h-5 text-slate-400 transition-transform duration-200"
+                            [class.rotate-180]="isSkillsDropdownOpen()" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown Menu with Checkboxes -->
+                    @if (isSkillsDropdownOpen()) {
+                    <div
+                        class="absolute z-30 mt-2 w-full bg-white border border-slate-200 rounded-xl shadow-xl p-4 space-y-3">
+
+                        <!-- Search and Quick Action Buttons -->
+                        <div class="flex items-center gap-2">
+                            <div class="relative flex-1">
+                                <input type="text" [value]="skillSearchQuery()" (input)="onSkillSearchChange($event)"
+                                    placeholder="Search skills (e.g. Angular, Python, SQL)..."
+                                    class="w-full text-sm border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 focus:border-blue-500 focus:outline-none" />
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="w-4 h-4 text-slate-400 absolute left-2.5 top-2.5" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
+
+                            <button type="button" (click)="selectAllSkills()"
+                                class="text-xs font-semibold text-blue-600 hover:text-blue-700 bg-blue-50 px-2.5 py-1.5 rounded-md transition whitespace-nowrap">
+                                Select All
+                            </button>
+                            <button type="button" (click)="clearAllSkills()"
+                                class="text-xs font-semibold text-slate-600 hover:text-slate-800 bg-slate-100 px-2.5 py-1.5 rounded-md transition whitespace-nowrap">
+                                Clear
+                            </button>
+                        </div>
+
+                        <!-- Scrollable Checkbox List -->
+                        <div
+                            class="max-h-56 overflow-y-auto space-y-1 pr-1 border border-slate-100 rounded-lg p-2 bg-slate-50/50">
+                            @for (skill of filteredSkills(); track skill) {
+                            <label
+                                class="flex items-center gap-3 p-2 rounded-md hover:bg-blue-50/60 cursor-pointer transition select-none text-sm text-slate-700 font-medium">
+                                <input type="checkbox" [checked]="isSkillSelected(skill)" (change)="toggleSkill(skill)"
+                                    class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer" />
+                                <span>{{ skill }}</span>
+                            </label>
+                            } @empty {
+                            <p class="text-xs text-slate-500 py-3 text-center">No skills matched your search.</p>
+                            }
+                        </div>
+
+                        <!-- Add Custom Skill Input -->
+                        <div class="pt-2 border-t border-slate-200 flex items-center gap-2">
+                            <input type="text" [value]="customSkillInput()" (input)="onCustomSkillInputChange($event)"
+                                (keyup.enter)="addCustomSkill()" placeholder="Don't see your skill? Add it here..."
+                                class="flex-1 text-sm border border-slate-200 rounded-lg px-3 py-1.5 focus:border-blue-500 focus:outline-none" />
+                            <button type="button" (click)="addCustomSkill()"
+                                class="text-xs font-semibold bg-slate-800 hover:bg-slate-900 text-white px-3 py-2 rounded-lg transition whitespace-nowrap">
+                                + Add Skill
+                            </button>
+                        </div>
+
+                        <!-- Close Button -->
+                        <div class="flex justify-end pt-1">
+                            <button type="button" (click)="closeSkillsDropdown()"
+                                class="text-xs text-slate-600 hover:text-slate-900 font-medium underline">
+                                Done Selecting
+                            </button>
+                        </div>
+
+                    </div>
+                    }
+                </div>
+
+                <!-- Selected Skills Badges/Chips -->
+                @if (selectedSkills().length > 0) {
+                <div class="flex flex-wrap gap-2 mt-3 p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                    @for (skill of selectedSkills(); track skill) {
+                    <span
+                        class="inline-flex items-center gap-1.5 text-xs font-semibold bg-blue-100 text-blue-800 px-2.5 py-1 rounded-full shadow-sm">
+                        {{ skill }}
+                        <button type="button" (click)="removeSkill(skill)"
+                            class="hover:text-blue-950 font-bold focus:outline-none">
+                            &times;
+                        </button>
+                    </span>
+                    }
+                </div>
+                }
+
+                @if (applicationForm.get('skills')?.touched && applicationForm.get('skills')?.invalid) {
+                <p class="error-text">Please check at least one skill.</p>
+                }
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">
+                    Certifications & Licenses
+                </label>
+                <input type="text" formControlName="certifications"
+                    placeholder="e.g. AWS Certified Solutions Architect, Google Professional Cloud Developer"
+                    class="form-input" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 8: Work Authorization & Preferences -->
+    <section>
+        <h3 class="text-xl font-bold text-slate-900 pb-2 border-b border-slate-200 flex items-center gap-2">
+            <span
+                class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 text-sm font-bold flex items-center justify-center">8</span>
+            Work Authorization & Preferences
+        </h3>
+
+        <div class="mt-6 space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Legally authorized to work in the hiring country? <span class="text-red-500">*</span>
+                    </label>
+                    <select formControlName="workAuthorization" class="form-input bg-white">
+                        <option value="" disabled>Select an option</option>
+                        <option value="Yes">Yes, authorized to work</option>
+                        <option value="No">No</option>
+                    </select>
+                    @if (applicationForm.get('workAuthorization')?.touched &&
+                    applicationForm.get('workAuthorization')?.invalid)
+                    {
+                    <p class="error-text">Please specify your work authorization status.</p>
+                    }
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Will you require visa sponsorship now or in the future? <span class="text-red-500">*</span>
+                    </label>
+                    <select formControlName="visaSponsorship" class="form-input bg-white">
+                        <option value="" disabled>Select an option</option>
+                        <option value="No">No sponsorship required</option>
+                        <option value="Yes">Yes, require sponsorship</option>
+                    </select>
+                    @if (applicationForm.get('visaSponsorship')?.touched &&
+                    applicationForm.get('visaSponsorship')?.invalid) {
+                    <p class="error-text">Please specify sponsorship requirement.</p>
+                    }
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Preferred Work Environment
+                    </label>
+                    <select formControlName="workPreference" class="form-input bg-white">
+                        <option value="Remote">Remote</option>
+                        <option value="Hybrid">Hybrid</option>
+                        <option value="On-site">On-site</option>
+                        <option value="Open to Any">Open to Any</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">
+                        Willingness to Relocate?
+                    </label>
+                    <select formControlName="willingToRelocate" class="form-input bg-white">
+                        <option value="Yes">Yes, willing to relocate</option>
+                        <option value="No">No, local or remote only</option>
+                        <option value="Negotiable">Negotiable depending on package</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 9: Cover Letter & Additional Information -->
+    <section>
+        <h3 class="text-xl font-bold text-slate-900 pb-2 border-b border-slate-200 flex items-center gap-2">
+            <span
+                class="w-7 h-7 rounded-full bg-blue-100 text-blue-700 text-sm font-bold flex items-center justify-center">9</span>
+            Cover Letter & Notes
+        </h3>
+
+        <div class="mt-6 space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">
+                    Cover Letter / Why are you a great match for this position?
+                </label>
+                <textarea formControlName="coverLetter" rows="4"
+                    placeholder="Introduce yourself, highlight key projects, and explain why you're a great fit for this team..."
+                    class="form-input resize-y"></textarea>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">
+                    How did you hear about this opportunity?
+                </label>
+                <select formControlName="heardFrom" class="form-input bg-white">
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="Company Website">Company Career Page</option>
+                    <option value="Employee Referral">Employee Referral</option>
+                    <option value="Job Board (Indeed, Glassdoor, etc.)">Job Board (Indeed, Glassdoor, etc.)</option>
+                    <option value="Recruiter Outreach">Recruiter Outreach</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 10: Consent & Declaration -->
+    <section class="pt-2">
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" formControlName="termsAccepted"
+                    class="mt-1 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer" />
+                <span class="text-sm text-slate-700">
+                    I certify that all statements made in this job application are true, complete, and accurate to the
+                    best of
+                    my knowledge. I understand that any false or misleading statement may result in disqualification
+                    from
+                    consideration or termination of employment. <span class="text-red-500">*</span>
+                </span>
+            </label>
+            @if (applicationForm.get('termsAccepted')?.touched && applicationForm.get('termsAccepted')?.invalid) {
+            <p class="error-text mt-2">You must agree to the declaration before submitting.</p>
+            }
+        </div>
+    </section>
+
+    <!-- Form Actions -->
+    <div class="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-slate-200">
+        <button type="button" (click)="onReset()"
+            class="w-full sm:w-auto px-6 py-2.5 rounded-lg border border-slate-300 text-slate-700 font-medium hover:bg-slate-100 transition">
+            Reset Form
+        </button>
+
+        <button type="submit"
+            class="w-full sm:w-auto px-8 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition flex items-center justify-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Submit Application
+        </button>
+    </div>
+
+</form>

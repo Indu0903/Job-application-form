@@ -1,0 +1,57 @@
+<div class="bg-blue-50/60 border border-blue-200 rounded-xl p-6 mb-10 shadow-sm">
+  <div class="flex items-start gap-4">
+    <div class="p-3 bg-blue-600 text-white rounded-lg hidden sm:block">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+      </svg>
+    </div>
+    <div class="flex-1">
+      <h3 class="text-lg font-semibold text-slate-900">Upload Your Resume</h3>
+      <p class="text-sm text-slate-600 mt-1">
+        Upload your resume in PDF format so our AI assistant can pre-fill your details and match you with jobs.
+      </p>
+
+      <div class="mt-4 flex flex-wrap items-center gap-3">
+        <label class="cursor-pointer">
+          <input #fileInput type="file" accept=".pdf, application/pdf" (change)="onFileChange($event)"
+            class="block w-full sm:w-auto text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer border border-slate-300 rounded-md bg-white p-1" />
+        </label>
+
+        <button type="button" (click)="onUploadWithAi()" [disabled]="isUploading() || !selectedFile()"
+          class="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium px-4 py-2 rounded-md shadow-sm transition flex items-center gap-2">
+          @if (isUploading()) {
+            <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+            Analyzing with AI...
+          } @else {
+            Auto-fill with AI
+          }
+        </button>
+      </div>
+
+      <!-- File Status / Error / Success Messages -->
+      @if (selectedFile(); as file) {
+        <div class="mt-3 flex items-center gap-2 text-xs text-slate-700 bg-white border border-slate-200 rounded-md px-3 py-1.5 w-fit">
+          <span class="font-medium text-slate-900 truncate max-w-xs">{{ file.name }}</span>
+          <span class="text-slate-400">({{ (file.size / 1024).toFixed(1) }} KB)</span>
+          <button type="button" (click)="onRemoveFile(fileInput)" class="text-red-500 hover:text-red-700 font-bold ml-1" title="Remove file">
+            &times;
+          </button>
+        </div>
+      }
+
+      @if (errorMessage()) {
+        <p class="text-xs text-red-600 mt-2 font-medium">{{ errorMessage() }}</p>
+      }
+
+      @if (uploadSuccess()) {
+        <p class="text-xs text-emerald-600 mt-2 font-semibold flex items-center gap-1">
+          ✓ Resume uploaded and analyzed successfully!
+        </p>
+      }
+    </div>
+  </div>
+</div>
